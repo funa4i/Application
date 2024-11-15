@@ -19,9 +19,7 @@ pipeline {
                 script {
                     // —троим Docker-образ, использу€ Dockerfile из репозитори€
                     //  оманда build будет искать Dockerfile в корневой директории проекта
-                    sh """
-                        docker build -t client .
-                    """
+                    sh 'docker build -t client .'
                 }
             }
         }
