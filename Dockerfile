@@ -8,14 +8,14 @@ WORKDIR /src
 COPY . .
 
 # Восстановление зависимостей для всех проектов
-RUN dotnet restore MyConsoleApp/MyConsoleApp.csproj
-RUN dotnet restore MyConsoleApp.Tests/MyConsoleApp.Tests.csproj
+RUN dotnet restore Client/Client.csproj
+RUN dotnet restore Client.Tests/Client.Tests.csproj
 
 # Сборка консольного приложения
-RUN dotnet publish MyConsoleApp/MyConsoleApp.csproj -c Release -o /app/publish
+RUN dotnet publish Client/Client.csproj -c Release -o /app/publish
 
 # Выполнение юнит-тестов и сохранение результатов в файл
-RUN dotnet test MyConsoleApp.Tests/MyConsoleApp.Tests.csproj --logger "trx;LogFileName=test_results.trx"
+RUN dotnet test Client.Tests/Client.Tests.csproj --logger "trx;LogFileName=test_results.trx"
 
 # Вторая стадия - образ с только runtime для запуска приложения
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
@@ -27,7 +27,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Указываем команду для запуска консольного приложения
-ENTRYPOINT ["dotnet", "MyConsoleApp.dll"]
+ENTRYPOINT ["dotnet", "Client.dll"]
 
 # Опционально: Выводим результаты тестов на консоль в логи контейнера
 # Для этого можно использовать команду `docker logs` после выполнения тестов
