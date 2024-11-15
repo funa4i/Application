@@ -1,5 +1,5 @@
 # Используем официальный образ для .NET SDK для сборки приложения
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Устанавливаем рабочую директорию
 WORKDIR /src
@@ -18,7 +18,7 @@ RUN dotnet publish Client/Client.csproj -c Release -o /app/publish
 RUN dotnet test Client.Tests/Client.Tests.csproj --logger "trx;LogFileName=test_results.trx"
 
 # Вторая стадия - образ с только runtime для запуска приложения
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
 # Устанавливаем рабочую директорию для запуска приложения
 WORKDIR /app
