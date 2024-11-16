@@ -19,9 +19,6 @@ namespace Clinet
         public void sartIt()
         {
             Console.WriteLine("Ваша первая матрица");
-            service.genGraph(5);
-            service.printGraph();
-
             string ins;
             do
             {
@@ -35,11 +32,11 @@ namespace Clinet
                 switch (ins)
                 {
                     case "1":
-                        service.genGraph(5);
+                        service.genGraph(5).Wait();
                         service.printGraph();
                         break;
                     case "2":
-                        service.division();
+                        service.division().Wait();
                         service.printGraph();
                         break;
                     case "3":
@@ -53,8 +50,6 @@ namespace Clinet
 
 
         }
-
-
 
 
     }
